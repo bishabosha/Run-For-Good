@@ -1,0 +1,22 @@
+.reportInfoWindow {
+    width: 110px;
+    background-color: white;
+}
+
+.reportInfoWindow > thead {
+    font-size: 1.2em;
+    text-align: center;
+    color: cadetblue;
+}
+
+.reportInfoWindow > tbody > tr > td:first-child {
+    color: darkred;
+    font-weight: bold;
+}
+
+.reportInfoWindow > tbody > tr > td > img {
+	width: 100px;
+	height: 100px;
+	border-radius: 100%;
+	margin: 5px;
+}
