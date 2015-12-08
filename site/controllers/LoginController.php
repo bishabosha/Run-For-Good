@@ -7,6 +7,7 @@ use yii\web\Controller;
 use yii\base\Object;
 use yii\helpers\Html;
 use yii\authclient\OAuth2;
+use yii\authclient\OAuth1;
 
 class LoginController extends Controller
 {
@@ -35,6 +36,21 @@ class LoginController extends Controller
 		$session = \Yii::$app->session;
 		$request = \Yii::$app->request;
 		
+		$oauth = new OAuth2();
+		$oauth->clientId = $this->clientId;
+		$oauth->authUrl = 'https://api.fitbit.com/oauth2/token';
+		$oauth->fetchAccessToken($request->get('code'), array(
+			'client_id' => $this->clientId,
+			'grant_type' => 'authorization_code',
+			'redirect_uri' => Yii::getAlias('@web/index.php?r=login/success')."&code=".$request->get('code')
+		));
+		
+		$oauth->buildAuthUrl(array(
+			'client_id' => $this->clientId,
+			'grant_type' => 'authorization_code',
+			'redirect_uri' => Yii::getAlias('@web/index.php?r=login/success')."&code=".$request->get('code')
+		));
+		
 		$base64auth = base64_encode("229XBT:fd590071df7af3a872eec8d61d80f35et");
 		echo $base64auth;
 		$url = 'https://api.fitbit.com/oauth2/token';
@@ -52,9 +68,9 @@ class LoginController extends Controller
 				),
 		);
 		$context  = stream_context_create($options);
-		$result = file_get_contents($url, false, $context);
+		//$result = file_get_contents($url, false, $context);
 		
-		$session->set('dump', $result);
+		$session->set('dump', $context);
 		return $this->redirect('@web/index.php?r=site/dump');
 		
 		//$session->set('dump', $request->post());
