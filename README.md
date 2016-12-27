@@ -1,4 +1,4 @@
-# CFG17
-code for good save the children wearables challenge
+# Run For Good
+Code For Good London 2015 Save the Children Wearables Challenge
 
-5
+https://devpost.com/software/run-for-good-l4saqg
